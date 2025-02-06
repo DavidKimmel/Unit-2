@@ -1,0 +1,741 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Winston-Salem",
+          "Avg_green_area_1990": 24.17,
+          "Avg_green_area_2000": 38.09,
+          "Avg_green_area_2010": 41.31,
+          "Avg_green_area_2020": 46.95,
+          "Green_percapita_1990": 394.24,
+          "Green_percapita_2000": 430.97,
+          "Green_percapita_2010": 406.68,
+          "Green_percapita_2020": 410.58
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.2440518,
+            36.0998131
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Austin",
+          "Avg_green_area_1990": 25.48,
+          "Avg_green_area_2000": 40.73,
+          "Avg_green_area_2010": 38.21,
+          "Avg_green_area_2020": 43.22,
+          "Green_percapita_1990": 420.25,
+          "Green_percapita_2000": 420,
+          "Green_percapita_2010": 290.22,
+          "Green_percapita_2020": 219.65
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -97.7436995,
+            30.2711286
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Cleveland",
+          "Avg_green_area_1990": 35.76,
+          "Avg_green_area_2000": 31.68,
+          "Avg_green_area_2010": 45.64,
+          "Avg_green_area_2020": 43.18,
+          "Green_percapita_1990": 257.18,
+          "Green_percapita_2000": 223.29,
+          "Green_percapita_2010": 337.6,
+          "Green_percapita_2020": 335.05
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.6936772,
+            41.4996574
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Raleigh",
+          "Avg_green_area_1990": 45.02,
+          "Avg_green_area_2000": 40.96,
+          "Avg_green_area_2010": 43.04,
+          "Avg_green_area_2020": 42.1,
+          "Green_percapita_1990": "1,017.35",
+          "Green_percapita_2000": 586.9,
+          "Green_percapita_2010": 427.84,
+          "Green_percapita_2020": 298.67
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -78.6390989,
+            35.7803977
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Savannah",
+          "Avg_green_area_1990": 45.82,
+          "Avg_green_area_2000": 43.8,
+          "Avg_green_area_2010": 38.98,
+          "Avg_green_area_2020": 41.95,
+          "Green_percapita_1990": 574.99,
+          "Green_percapita_2000": 557.18,
+          "Green_percapita_2010": 432.81,
+          "Green_percapita_2020": 406.56
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.0921335,
+            32.0790074
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Atlanta",
+          "Avg_green_area_1990": 42.76,
+          "Avg_green_area_2000": 41.85,
+          "Avg_green_area_2010": 42.38,
+          "Avg_green_area_2020": 41.04,
+          "Green_percapita_1990": 652.68,
+          "Green_percapita_2000": 420.03,
+          "Green_percapita_2010": 364.01,
+          "Green_percapita_2020": 293.96
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -84.3902644,
+            33.7489924
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Columbia, South Carolina",
+          "Avg_green_area_1990": 38.31,
+          "Avg_green_area_2000": 37.43,
+          "Avg_green_area_2010": 38.07,
+          "Avg_green_area_2020": 40.43,
+          "Green_percapita_1990": 565.03,
+          "Green_percapita_2000": 459.89,
+          "Green_percapita_2010": 389.61,
+          "Green_percapita_2020": 346.29
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.0352313,
+            34.000754
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Charlotte",
+          "Avg_green_area_1990": 41.47,
+          "Avg_green_area_2000": 39.4,
+          "Avg_green_area_2010": 42.26,
+          "Avg_green_area_2020": 39.72,
+          "Green_percapita_1990": 818.86,
+          "Green_percapita_2000": 566.5,
+          "Green_percapita_2010": 449.72,
+          "Green_percapita_2020": 342.2
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.8430827,
+            35.2272086
+          ]
+        },
+        "id": 7
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Charleston",
+          "Avg_green_area_1990": 15.56,
+          "Avg_green_area_2000": 27.49,
+          "Avg_green_area_2010": 22.96,
+          "Avg_green_area_2020": 37.57,
+          "Green_percapita_1990": 164.01,
+          "Green_percapita_2000": 289.07,
+          "Green_percapita_2010": 207.47,
+          "Green_percapita_2020": 286.15
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -79.9399309,
+            32.7884363
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Philadelphia",
+          "Avg_green_area_1990": 40.98,
+          "Avg_green_area_2000": 38.78,
+          "Avg_green_area_2010": 31.82,
+          "Avg_green_area_2020": 37.08,
+          "Green_percapita_1990": 259.11,
+          "Green_percapita_2000": 227.48,
+          "Green_percapita_2010": 179.51,
+          "Green_percapita_2020": 199.34
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -75.1635262,
+            39.9527237
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Wilmington",
+          "Avg_green_area_1990": 48.42,
+          "Avg_green_area_2000": 41.14,
+          "Avg_green_area_2010": 40.1,
+          "Avg_green_area_2020": 34.77,
+          "Green_percapita_1990": 861.78,
+          "Green_percapita_2000": 613.68,
+          "Green_percapita_2010": 470.07,
+          "Green_percapita_2020": 378.2
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -75.546589,
+            39.7459468
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Houston",
+          "Avg_green_area_1990": 36.15,
+          "Avg_green_area_2000": 34.49,
+          "Avg_green_area_2010": 33.58,
+          "Avg_green_area_2020": 32.41,
+          "Green_percapita_1990": 463.97,
+          "Green_percapita_2000": 344.14,
+          "Green_percapita_2010": 267.9,
+          "Green_percapita_2020": 204.35
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.3676974,
+            29.7589382
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Orlando",
+          "Avg_green_area_1990": 30.99,
+          "Avg_green_area_2000": 31.86,
+          "Avg_green_area_2010": 29.89,
+          "Avg_green_area_2020": 29.93,
+          "Green_percapita_1990": 586.14,
+          "Green_percapita_2000": 437.7,
+          "Green_percapita_2010": 319.26,
+          "Green_percapita_2020": 258.25
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.3790304,
+            28.5421109
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "San Antonio",
+          "Avg_green_area_1990": 26.82,
+          "Avg_green_area_2000": 28.74,
+          "Avg_green_area_2010": 27.8,
+          "Avg_green_area_2020": 29.48,
+          "Green_percapita_1990": 325.16,
+          "Green_percapita_2000": 295.7,
+          "Green_percapita_2010": 229.54,
+          "Green_percapita_2020": 184.8
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -98.4951405,
+            29.4246002
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Chicago",
+          "Avg_green_area_1990": 27.18,
+          "Avg_green_area_2000": 26.48,
+          "Avg_green_area_2010": 23.89,
+          "Avg_green_area_2020": 24.99,
+          "Green_percapita_1990": 237,
+          "Green_percapita_2000": 203.18,
+          "Green_percapita_2010": 177.18,
+          "Green_percapita_2020": 179.67
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -87.6244212,
+            41.8755616
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Seattle",
+          "Avg_green_area_1990": 26.64,
+          "Avg_green_area_2000": 26.39,
+          "Avg_green_area_2010": 22.42,
+          "Avg_green_area_2020": 24.62,
+          "Green_percapita_1990": 222.27,
+          "Green_percapita_2000": 178.01,
+          "Green_percapita_2010": 133.55,
+          "Green_percapita_2020": 129.73
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.330062,
+            47.6038321
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Dallas",
+          "Avg_green_area_1990": 28.94,
+          "Avg_green_area_2000": 18.43,
+          "Avg_green_area_2010": 15.28,
+          "Avg_green_area_2020": 22.66,
+          "Green_percapita_1990": 337.5,
+          "Green_percapita_2000": 160.51,
+          "Green_percapita_2010": 108.94,
+          "Green_percapita_2020": 132.93
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -96.7968559,
+            32.7762719
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Montgomery",
+          "Avg_green_area_1990": 19.65,
+          "Avg_green_area_2000": 19.7,
+          "Avg_green_area_2010": 21.39,
+          "Avg_green_area_2020": 22.39,
+          "Green_percapita_1990": 237.67,
+          "Green_percapita_2000": 231.97,
+          "Green_percapita_2010": 244.27,
+          "Green_percapita_2020": 194.22
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -86.3091683,
+            32.37742
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Miami",
+          "Avg_green_area_1990": 14.89,
+          "Avg_green_area_2000": 15.13,
+          "Avg_green_area_2010": 12.07,
+          "Avg_green_area_2020": 21.56,
+          "Green_percapita_1990": 124.32,
+          "Green_percapita_2000": 102.04,
+          "Green_percapita_2010": 72.94,
+          "Green_percapita_2020": 116.95
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.19362,
+            25.7741728
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Milwaukee",
+          "Avg_green_area_1990": 24.45,
+          "Avg_green_area_2000": 23.24,
+          "Avg_green_area_2010": 20.84,
+          "Avg_green_area_2020": 17.3,
+          "Green_percapita_1990": 218,
+          "Green_percapita_2000": 197.95,
+          "Green_percapita_2010": 172.49,
+          "Green_percapita_2020": 138.85
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -87.9090751,
+            43.0386475
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Omaha",
+          "Avg_green_area_1990": 12.67,
+          "Avg_green_area_2000": 13.62,
+          "Avg_green_area_2010": 14.42,
+          "Avg_green_area_2020": 15.67,
+          "Green_percapita_1990": 141.83,
+          "Green_percapita_2000": 133.74,
+          "Green_percapita_2010": 123.94,
+          "Green_percapita_2020": 117.86
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.9383758,
+            41.2587459
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "San Diego",
+          "Avg_green_area_1990": 10.52,
+          "Avg_green_area_2000": 8.36,
+          "Avg_green_area_2010": 12.47,
+          "Avg_green_area_2020": 15.12,
+          "Green_percapita_1990": 75.23,
+          "Green_percapita_2000": 52.54,
+          "Green_percapita_2010": 70.82,
+          "Green_percapita_2020": 77.9
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -117.162772,
+            32.7174202
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Jackson, Mississippi",
+          "Avg_green_area_1990": 16.99,
+          "Avg_green_area_2000": 15.65,
+          "Avg_green_area_2010": 15.82,
+          "Avg_green_area_2020": 14.38,
+          "Green_percapita_1990": 154.55,
+          "Green_percapita_2000": 142.39,
+          "Green_percapita_2010": 139.89,
+          "Green_percapita_2020": 108.05
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -90.1830408,
+            32.2998686
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Eugene,OR",
+          "Avg_green_area_1990": 11.18,
+          "Avg_green_area_2000": 12.37,
+          "Avg_green_area_2010": 12.69,
+          "Avg_green_area_2020": 14.31,
+          "Green_percapita_1990": 96.84,
+          "Green_percapita_2000": 94.1,
+          "Green_percapita_2010": 88.25,
+          "Green_percapita_2020": 90.4
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -123.0950506,
+            44.0505054
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Sioux Falls",
+          "Avg_green_area_1990": 8.47,
+          "Avg_green_area_2000": 8.67,
+          "Avg_green_area_2010": 9.33,
+          "Avg_green_area_2020": 10.38,
+          "Green_percapita_1990": 104.78,
+          "Green_percapita_2000": 92.96,
+          "Green_percapita_2010": 82.36,
+          "Green_percapita_2020": 80.14
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -96.7293629,
+            43.5476008
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Wichita",
+          "Avg_green_area_1990": 4.23,
+          "Avg_green_area_2000": 5.65,
+          "Avg_green_area_2010": 6.2,
+          "Avg_green_area_2020": 8.94,
+          "Green_percapita_1990": 47.57,
+          "Green_percapita_2000": 51.32,
+          "Green_percapita_2010": 50.79,
+          "Green_percapita_2020": 65.67
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -97.38720322,
+            37.68118565
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Sacramento",
+          "Avg_green_area_1990": 8.5,
+          "Avg_green_area_2000": 9.66,
+          "Avg_green_area_2010": 7.38,
+          "Avg_green_area_2020": 8.46,
+          "Green_percapita_1990": 83.99,
+          "Green_percapita_2000": 77.65,
+          "Green_percapita_2010": 49.53,
+          "Green_percapita_2020": 47.72
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -121.493895,
+            38.5810606
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Yakima,WA",
+          "Avg_green_area_1990": 14.1,
+          "Avg_green_area_2000": 12.41,
+          "Avg_green_area_2010": 10.3,
+          "Avg_green_area_2020": 8.03,
+          "Green_percapita_1990": 151.93,
+          "Green_percapita_2000": 115.7,
+          "Green_percapita_2010": 87.34,
+          "Green_percapita_2020": 59.37
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -120.510842,
+            46.601557
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Los Angeles",
+          "Avg_green_area_1990": 9.23,
+          "Avg_green_area_2000": 6.61,
+          "Avg_green_area_2010": 7.01,
+          "Avg_green_area_2020": 5.88,
+          "Green_percapita_1990": 39.7,
+          "Green_percapita_2000": 25.73,
+          "Green_percapita_2010": 25.78,
+          "Green_percapita_2020": 20.5
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.242766,
+            34.0536909
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Yuma,AZ",
+          "Avg_green_area_1990": 8.77,
+          "Avg_green_area_2000": 7.78,
+          "Avg_green_area_2010": 6.49,
+          "Avg_green_area_2020": 5.82,
+          "Green_percapita_1990": 116.38,
+          "Green_percapita_2000": 73.25,
+          "Green_percapita_2010": 50.2,
+          "Green_percapita_2020": 46.53
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -114.6179954,
+            32.723268
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Phoenix-Mesa",
+          "Avg_green_area_1990": 8.69,
+          "Avg_green_area_2000": 6.79,
+          "Avg_green_area_2010": 4.55,
+          "Avg_green_area_2020": 4.92,
+          "Green_percapita_1990": 124.39,
+          "Green_percapita_2000": 66.65,
+          "Green_percapita_2010": 35.25,
+          "Green_percapita_2020": 30.62
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -112.0385723,
+            33.66461233
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Albuquerque",
+          "Avg_green_area_1990": 4.76,
+          "Avg_green_area_2000": 3.71,
+          "Avg_green_area_2010": 3.57,
+          "Avg_green_area_2020": 4.83,
+          "Green_percapita_1990": 50.03,
+          "Green_percapita_2000": 32.74,
+          "Green_percapita_2010": 25.82,
+          "Green_percapita_2020": 28.65
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -106.650985,
+            35.0841034
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Las Vegas",
+          "Avg_green_area_1990": 2.84,
+          "Avg_green_area_2000": 4.21,
+          "Avg_green_area_2010": 4.69,
+          "Avg_green_area_2020": 4.78,
+          "Green_percapita_1990": 41.72,
+          "Green_percapita_2000": 33.45,
+          "Green_percapita_2010": 26.15,
+          "Green_percapita_2020": 19.75
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -115.148516,
+            36.1672559
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Salt Lake City",
+          "Avg_green_area_1990": 6.47,
+          "Avg_green_area_2000": 5.42,
+          "Avg_green_area_2010": 4.99,
+          "Avg_green_area_2020": 4.49,
+          "Green_percapita_1990": 55.77,
+          "Green_percapita_2000": 40.84,
+          "Green_percapita_2010": 32.64,
+          "Green_percapita_2020": 25.03
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -111.886797,
+            40.7596198
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "City": "Fargo,ND",
+          "Avg_green_area_1990": 1.34,
+          "Avg_green_area_2000": 1.62,
+          "Avg_green_area_2010": 2.07,
+          "Avg_green_area_2020": 2.23,
+          "Green_percapita_1990": 16.86,
+          "Green_percapita_2000": 18.17,
+          "Green_percapita_2010": 19.26,
+          "Green_percapita_2020": 17.56
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -96.789821,
+            46.877229
+          ]
+        }
+      }
+    ]
+  }
