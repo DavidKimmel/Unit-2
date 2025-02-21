@@ -1,191 +1,218 @@
-// Initialize the map
-var map = L.map('map').setView([37.8, -96], 4);
+// Global variable to store overall dataset statistics (calculated once)
+var dataStats = {};
 
-// Add base layers
-var baseLayers = {
-    "Street Map": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
-    }),
-    "Topographic Map": L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data: &copy; OpenStreetMap contributors, SRTM | Map style: &copy; OpenTopoMap'
-    }),
-    "Satellite": L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors, Humanitarian OpenStreetMap Team'
-    })
-};
+// Initialize the map with base maps and layer control
+var map = L.map('map', { center: [37.8, -96], zoom: 4 });
 
-// Add the default base layer
-baseLayers["Street Map"].addTo(map);
+// Define basemaps
+var lightBasemap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri, HERE, Garmin, NGA, USGS'
+});
+var darkBasemap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri, HERE, Garmin, NGA, USGS'
+});
+lightBasemap.addTo(map);
+var baseMaps = { "Light Gray": lightBasemap, "Dark Gray": darkBasemap };
+L.control.layers(baseMaps).addTo(map);
 
-// Add basemap control
-L.control.layers(baseLayers).addTo(map);
-
-// Fetch and process GeoJSON data
-function getData(map){
-    fetch('data/green.geojson')
-        .then(response => response.json())
-        .then(json => {
-            var attributes = processData(json);
-            createPropSymbols(json, attributes);
-            createSequenceControls(attributes);
-        });
+// Class for handling proportional symbols on the map
+class ProportionalSymbol {
+    constructor(feature, latlng, attribute) {
+        this.feature = feature;
+        this.latlng = latlng;
+        this.attribute = attribute;
+        this.properties = feature.properties;
+        this.value = Number(this.properties[this.attribute]);
+        this.radius = ProportionalSymbol.calcPropRadius(this.value);
+        this.layer = this.createLayer();
+    }
+    // Calculate radius (same logic as for the map symbols)
+    static calcPropRadius(attValue) {
+        let minRadius = 5;
+        let scaleFactor = 1;
+        let area = attValue * scaleFactor;
+        let radius = Math.sqrt(area / Math.PI);
+        return radius < minRadius ? minRadius : radius;
+    }
+    createLayer() {
+        let options = {
+            fillColor: "#2ca25f",  // Uniform green color
+            color: "#000",
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.6,
+            radius: this.radius
+        };
+        let layer = L.circleMarker(this.latlng, options);
+        layer.bindPopup(createPopupContent(this.properties, this.attribute));
+        // Open popup on mouseover, close on mouseout
+        layer.on('mouseover', function () { this.openPopup(); });
+        layer.on('mouseout', function () { this.closePopup(); });
+        return layer;
+    }
 }
 
-// Process data to extract attributes
-function processData(data){
-    var attributes = [];
-    var properties = data.features[0].properties;
+// Create popup content for each marker
+function createPopupContent(properties, attribute) {
+    let year = attribute.split("_")[2];
+    return `<p><b>City:</b> ${properties.City}</p>
+            <p><b>Green Space Per Capita in ${year}:</b> ${properties[attribute]} sq m</p>`;
+}
 
-    for (var attribute in properties){
-        if (attribute.indexOf("Green_percapita") > -1){
+// Process GeoJSON to extract "Green_percapita" attributes
+function processData(data) {
+    let attributes = [];
+    let properties = data.features[0].properties;
+    let allValues = [];
+    for (let attribute in properties) {
+        if (attribute.indexOf("Green_percapita") > -1) {
             attributes.push(attribute);
         }
     }
-    
-    // Sort attributes to ensure chronological order explicitly
-    var yearOrder = ["1990", "2000", "2010", "2020"];
-    attributes.sort((a, b) => {
-        var yearA = a.split('_')[2];
-        var yearB = b.split('_')[2];
-        return yearOrder.indexOf(yearA) - yearOrder.indexOf(yearB);
+    data.features.forEach(function (feature) {
+        attributes.forEach(function (attribute) {
+            let value = Number(feature.properties[attribute]);
+            if (!isNaN(value)) {
+                allValues.push(value);
+            }
+        });
     });
-
-    console.log(attributes);
+    map.minValue = Math.min(...allValues);
+    map.maxValue = Math.max(...allValues);
+    // Sort attributes by year (e.g., "Green_percapita_1990", etc.)
+    let years = ["1990", "2000", "2010", "2020"];
+    attributes.sort(function (a, b) {
+        let yearA = a.split("_")[2];
+        let yearB = b.split("_")[2];
+        return years.indexOf(yearA) - years.indexOf(yearB);
+    });
     return attributes;
 }
 
-// Function to get color based on Green_percapita value
-function getColor(greenPerCapita) {
-    return greenPerCapita > 300 ? '#006400' :    // Dark Green for > 300
-           greenPerCapita > 200 ? '#32CD32' :   // Lime Green for 201-300
-                                  '#ADFF2F';     // Light Green for 0-200
+// Calculate overall (global) statistics for the green space values
+function calcStats(data) {
+    let allValues = [];
+    data.features.forEach(function (feature) {
+        for (let attribute in feature.properties) {
+            if (attribute.indexOf("Green_percapita") > -1) {
+                let value = Number(feature.properties[attribute]);
+                if (!isNaN(value)) {
+                    allValues.push(value);
+                }
+            }
+        }
+    });
+    dataStats.min = Math.min(...allValues);
+    dataStats.max = Math.max(...allValues);
+    let sum = allValues.reduce((a, b) => a + b, 0);
+    dataStats.mean = sum / allValues.length;
 }
 
-// Create proportional symbols
-function createPropSymbols(data, attributes){
+// Create proportional symbols on the map
+function createPropSymbols(data, attributes) {
     L.geoJson(data, {
-        pointToLayer: function(feature, latlng){
-            return pointToLayer(feature, latlng, attributes);
-        }
+        pointToLayer: (feature, latlng) => new ProportionalSymbol(feature, latlng, attributes[0]).layer
     }).addTo(map);
 }
 
-// Convert markers to circle markers
-function pointToLayer(feature, latlng, attributes){
-    var attribute = attributes[0];  // Get initial attribute (e.g., Green_percapita_1990)
-    var year = attribute.split("_")[2];  // Extract year from attribute name
-    var greenPerCapita = feature.properties[attribute] || 0;  // Ensure a valid number
-    
-    var options = {
-        fillColor: getColor(greenPerCapita),
-        color: "#000",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8
-    };
-
-    var attValue = Number(feature.properties[attribute]);
-    options.radius = calcPropRadius(attValue);
-
-    var layer = L.circleMarker(latlng, options);
-
-    var popupContent = `<p><b>City:</b> ${feature.properties.City}</p>
-                        <p><b>Green Per Capita in ${year}:</b> ${feature.properties[attribute]} sq m</p>`;
-    
-    layer.bindPopup(popupContent);
-    return layer;
-}
-
-// Calculate proportional radius
-function calcPropRadius(attValue) {
-    var minRadius = 7;  // Minimum size of the smallest symbol
-    var scaleFactor = 2;  // Adjusted scale factor for better symbol scaling
-    var area = attValue * scaleFactor;
-    var radius = Math.sqrt(area / Math.PI);
-    return radius < minRadius ? minRadius : radius;
-}
-
-// Create sequence controls with year display and standard buttons
-function createSequenceControls(attributes){
-    // Add slider and control buttons
-    var controlsHTML = `
-        <div class="sequence-controls">
-            <button class="step" id="reverse">⏪</button>
-            <input class='range-slider' type='range'>
-            <button class="step" id="forward">⏩</button>
-             <span id="year-display">${attributes[0].split("_")[2]}</span>
-        </div>
-    `;
-    document.querySelector("#panel").insertAdjacentHTML('beforeend', controlsHTML);
-
-    // Slider configuration
-    var slider = document.querySelector(".range-slider");
-    slider.max = attributes.length - 1;
-    slider.min = 0;
-    slider.value = 0;
-    slider.step = 1;
-
-    // Event listeners for buttons
-    document.querySelectorAll('.step').forEach(function(step){
-        step.addEventListener("click", function(){
-            var index = parseInt(slider.value);
-
-            if (step.id == 'forward'){
-                index = (index + 1) % attributes.length;
-            } else if (step.id == 'reverse'){
-                index = (index - 1 + attributes.length) % attributes.length;
-            }
-
-            slider.value = index;
-            updatePropSymbols(attributes[index]);
-        });
+// Update symbols and the temporal legend when the attribute changes
+function updatePropSymbols(attribute) {
+    map.eachLayer(function (layer) {
+        if (layer.feature && layer.feature.properties[attribute]) {
+            let props = layer.feature.properties;
+            let attValue = Number(props[attribute]);
+            let newRadius = ProportionalSymbol.calcPropRadius(attValue);
+            layer.setRadius(newRadius);
+            let popupContent = createPopupContent(props, attribute);
+            let popup = layer.getPopup();
+            popup.setContent(popupContent).update();
+        }
     });
+    // Update temporal legend title with the current year
+    let year = attribute.split("_")[2];
+    document.querySelector("span.year").innerHTML = year;
+    // Note: The attribute legend circles remain based on overall stats (dataStats) and do not change.
+}
 
-    // Event listener for slider input
-    slider.addEventListener('input', function(){
-        var index = this.value;
+// Create a custom sequence control (slider and buttons)
+function createSequenceControls(attributes) {
+    var SequenceControl = L.Control.extend({
+        options: { position: 'bottomleft' },
+        onAdd: function () {
+            var container = L.DomUtil.create('div', 'sequence-control-container');
+            // Insert reverse button, slider, then forward button (with new image names)
+            container.insertAdjacentHTML('beforeend',
+                '<button class="step" id="reverse" title="Reverse"><img src="img/back.png" alt="Back"></button>');
+            container.insertAdjacentHTML('beforeend',
+                '<input class="range-slider" type="range" min="0" max="' + (attributes.length - 1) + '" value="0" step="1">');
+            container.insertAdjacentHTML('beforeend',
+                '<button class="step" id="forward" title="Forward"><img src="img/up.png" alt="Forward"></button>');
+            L.DomEvent.disableClickPropagation(container);
+            return container;
+        }
+    });
+    map.addControl(new SequenceControl());
+    var slider = document.querySelector('.range-slider');
+    slider.addEventListener('input', function () {
+        updatePropSymbols(attributes[this.value]);
+    });
+    document.getElementById('reverse').addEventListener('click', function () {
+        let index = parseInt(slider.value);
+        index = (index - 1 + attributes.length) % attributes.length;
+        slider.value = index;
+        updatePropSymbols(attributes[index]);
+    });
+    document.getElementById('forward').addEventListener('click', function () {
+        let index = parseInt(slider.value);
+        index = (index + 1) % attributes.length;
+        slider.value = index;
         updatePropSymbols(attributes[index]);
     });
 }
 
-// Update proportional symbols and year display
-function updatePropSymbols(attribute) {
-    var year = attribute.split("_")[2];
-    document.querySelector('#year-display').textContent = year;
-
-    map.eachLayer(function(layer) {
-        if (layer.feature && layer.feature.properties[attribute]) {
-            var props = layer.feature.properties;
-            var radius = calcPropRadius(Number(props[attribute]));
-            var fillColor = getColor(Number(props[attribute]));  // Get new color
-
-            layer.setRadius(radius);
-            layer.setStyle({ fillColor: fillColor });  // Update the color
-
-            var popupContent = `<p><b>City:</b> ${props.City}</p>
-                                <p><b>Green Per Capita in ${year}:</b> ${props[attribute]} sq m</p>`;
-            layer.bindPopup(popupContent);
+// Create a custom legend control that displays both the temporal legend and a static SVG attribute legend
+function createLegend(attributes) {
+    var LegendControl = L.Control.extend({
+        options: { position: 'bottomright' },
+        onAdd: function () {
+            var container = L.DomUtil.create('div', 'legend-control-container');
+            // Temporal legend title (current year; updates with slider)
+            container.innerHTML = '<p class="temporalLegend">Green Space Per Capita in <span class="year">' + attributes[0].split("_")[2];
+            // Start the SVG element for the attribute legend (static, based on overall stats)
+            var svg = '<svg id="attribute-legend" width="160px" height="60px">';
+            // Array for circles: max, mean, and min
+            var circles = ["max", "mean", "min"];
+            for (var i = 0; i < circles.length; i++) {
+                var radius = ProportionalSymbol.calcPropRadius(dataStats[circles[i]]);
+                // Nest circles so that their bottoms align at y=59 (cx="30", cy = 59 - radius)
+                var cy = 59 - radius;
+                svg += '<circle class="legend-circle" id="' + circles[i] + '" r="' + radius + '" cy="' + cy +
+                       '" fill="#2ca25f" fill-opacity="0.6" stroke="#000000" cx="30"/>';
+                // Add text labels (x="65", y spaced evenly)
+                var textY = i * 20 + 20;
+                svg += '<text id="' + circles[i] + '-text" x="65" y="' + textY + '">' +
+                       Math.round(dataStats[circles[i]] * 100) / 100 + ' m\u00B2' +
+                       '</text>';
+            }
+            svg += "</svg>";
+            container.insertAdjacentHTML('beforeend', svg);
+            return container;
         }
     });
+    map.addControl(new LegendControl());
 }
 
-function createLegend(map) {
-    var legend = L.control({ position: "bottomleft" });
-
-    legend.onAdd = function(map) {
-        var div = L.DomUtil.create("div", "legend");
-        div.innerHTML += "<h4>Green Space Per Capita</h4>";
-        div.innerHTML += '<i style="background: #006400"></i> > 300 m<sup>2<br>';
-        div.innerHTML += '<i style="background: #32CD32"></i> 201 - 300 m<sup>2<br>';
-        div.innerHTML += '<i style="background: #ADFF2F"></i> 0 - 200 m<sup>2<br>';
-
-        return div;
-    };
-
-    legend.addTo(map);
+// Load GeoJSON data and initialize map features and controls
+function getData(map) {
+    fetch('data/green.geojson')
+        .then(response => response.json())
+        .then(function (json) {
+            var attributes = processData(json);  // Extract attributes like "Green_percapita_1990", etc.
+            calcStats(json);                     // Calculate overall statistics for the attribute legend
+            createPropSymbols(json, attributes);
+            createSequenceControls(attributes);
+            createLegend(attributes);
+        });
 }
 
-
-// Initialize the map with data
 getData(map);
-createLegend(map);

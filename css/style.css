@@ -1,104 +1,74 @@
-#map {    
-    height: 500px;    
-    width: 70%;
-    display: inline-block;
-    }
-
-/* Subtle slider style */
-.range-slider {
-    width: 30%;
-    height: 8px;
-    background: #e0e0e0; /* Light grey track */
-    border-radius: 4px;
-    outline: none;
-    margin: 10px 0;
-    transition: background 0.3s ease;
-}
-
-/* Slider thumb */
-.range-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    background: #333; /* Subtle dark thumb */
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-
-/* Change thumb color on hover */
-.range-slider::-webkit-slider-thumb:hover {
-    background: #555;
-    transform: scale(1.1); /* Slightly enlarge on hover for a tactile feel */
-}
-
-/* Firefox support */
-.range-slider::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
-    background: #333;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.range-slider::-moz-range-thumb:hover {
-    background: #555;
-    transform: scale(1.1);
-}
-
-/* Active state when dragging the slider */
-.range-slider:active::-webkit-slider-thumb {
-    background: #000;
-}
-
-.range-slider:active::-moz-range-thumb {
-    background: #000;
-}
-
-
-.page-title {
-    font-size: 28px;
-    font-weight: bold;
+/* Title styling above the map */
+.map-title {
+    text-align: center;
+    margin: 20px auto;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     color: #333;
-    margin: 20px 0 10px 20px; /* Top, Right, Bottom, Left */
-    padding: 5px 15px;
-    background-color: #f4f4f4;
-    border-left: 5px solid #4CAF50; /* Green accent stripe */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: fit-content;
-    border-radius: 4px;
+    max-width: 800px;
+    padding: 0 10px;
+  }
+  
+  .map-title h1 {
+    font-size: 2em;
+    margin-bottom: 0.3em;
+  }
+  
+  .map-title p {
+    font-size: 1em;
+    margin-top: 0;
+    color: #666;
+  }
+#map {
+    height: 600px;
+    width: 100%;
 }
 
-
-/* Basemap control style (optional to refine Leaflet's default) */
-.leaflet-control-layers {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 8px;
-    padding: 5px;
+/* Sequence control container styling */
+.sequence-control-container {  
+    width: 350px;  
+    height: 50px;  
+    background-color: rgba(255,255,255,0.8);  
+    padding: 10px;  
+    border: solid gray 1px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.legend {
-    background: white;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+/* Legend control container styling */
+.legend-control-container {
+    background-color: rgba(255,255,255,0.8);
+    padding: 5px 10px;
+    border: solid gray 1px;
     font-size: 14px;
-    line-height: 18px;
+    line-height: 1.4;
 }
 
-.legend h4 {
-    margin: 0 0 5px;
-    text-align: left;
-    font-weight: bold;
+/* Slider styling */
+.range-slider {  
+    flex: 1;  
+    margin: 0 10px;
 }
 
-.legend i {
-    width: 18px;
-    height: 18px;
-    display: inline-block;
-    margin-right: 8px;
-    border: 1px solid #999;
+/* Button styling */
+.step {  
+    width: 40px;  
+    height: 40px;  
+    border: none;
+    background: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.step img {  
+    width: 100%;  
+    height: 100%;  
+    object-fit: contain;
+}
+
+/* Legend circle styling */
+.legend-circle {
+    stroke-width: 1;
+}
