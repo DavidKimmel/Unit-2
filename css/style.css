@@ -72,3 +72,14 @@
 .legend-circle {
     stroke-width: 1;
 }
+.temporalLegend {
+    text-align: center;
+    margin: 5px 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+.legend-icon-inline {
+    width: 18px;          /* Adjust width as needed */
+    vertical-align: middle;
+    margin-right: 5px;
+}
