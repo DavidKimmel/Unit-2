@@ -8,14 +8,17 @@ var usLayer, worldLayer;
 var usAttributes, worldAttributes;
 var usDataGlobal, worldDataGlobal;
 
-// Initialize the map
+// Initialize the map (default USA view)
 var map = L.map('map', { center: [39.8283, -98.5795], zoom: 4 });
 
-// Define basemaps
-var osmBasemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+// Define tile layers (basemaps)
+var lightBasemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors'
 });
-osmBasemap.addTo(map);
+var darkBasemap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '© OpenStreetMap contributors, © CARTO'
+});
+lightBasemap.addTo(map); // default tile layer
 
 // --- CLASS & HELPER FUNCTIONS ---
 
@@ -159,34 +162,27 @@ function calcCurrentStats(attribute) {
 }
 
 // Update the SVG attribute legend using current statistics.
-// We use a separate legendScaleFactor and enforce a minimum and maximum legend radius.
-// The circles will be nested (their bottom edges align at a fixed baseline),
-// and the text labels are positioned at fixed x values for clear separation.
+// We use a separate legendScaleFactor and enforce min and max radii.
+// The circles will be nested (their bottom edges align) and the text labels are shifted to the right.
 function updateLegend(attribute) {
   let currStats = calcCurrentStats(attribute);
   let circles = ["max", "mean", "min"];
-
   let legendScaleFactor = 5;
   let minLegendRadius = 3;
   let maxLegendRadius = 30;
-
   let largestValue = currStats.max;
   let largestArea = largestValue * legendScaleFactor;
   let rawLargestRadius = Math.sqrt(largestArea / Math.PI);
   if (rawLargestRadius > maxLegendRadius) {
     legendScaleFactor *= maxLegendRadius / rawLargestRadius;
   }
-
   function calcLegendRadius(value) {
     let area = value * legendScaleFactor;
     let rawRadius = Math.sqrt(area / Math.PI);
     return rawRadius < minLegendRadius ? minLegendRadius : rawRadius;
   }
-
-  let baseline = 80; // New baseline for nesting circles
-  // Fixed text positions (x remains same in both functions; here we adjust vertical positions)
+  let baseline = 80; // baseline for nested circles
   let textPositions = { max: 30, mean: 50, min: 70 };
-
   circles.forEach(function (circle) {
     let radius = calcLegendRadius(currStats[circle]);
     let cy = baseline - radius;
@@ -257,13 +253,13 @@ function createLegend(attributes) {
         'Green Space Per Capita<br/>in <span class="year">' +
         attributes[0].split("_")[2] +
         '</span></p>';
-      // Increase SVG width to 220px to provide room for shifted symbols
-      var svg = '<svg id="attribute-legend" width="220px" height="100px">';
+      // Increase SVG width to 250px for extra room
+      var svg = '<svg id="attribute-legend" width="250px" height="100px">';
       var circles = ["max", "mean", "min"];
-      // Set fixed positions: move circles to the right by increasing cx and adjust text x accordingly
-      let circleX = 60;           // new cx for circles
-      let textX = 100;            // new x for text labels
-      let baseline = 80;          // baseline for nested circles
+      // Shift circles and text to the right by adjusting cx and text x
+      let circleX = 80;
+      let textX = 120;
+      let baseline = 80;  // baseline for nested circles
       let textPositions = { max: 30, mean: 50, min: 70 };
 
       let legendScaleFactor = 5;
@@ -331,29 +327,34 @@ Promise.all([
   createSequenceControls(activeAttributes);
   createLegend(activeAttributes);
   
-  // Create base layer control for switching between datasets
-  var baseMaps = {
+  // Create a separate base layer control for tile layers
+  var baseTileLayers = {
+    "Light Basemap": lightBasemap,
+    "Dark Basemap": darkBasemap
+  };
+  L.control.layers(baseTileLayers).addTo(map);
+  
+  // Create a data layer control (base layers group) for mutually exclusive data layers
+  var dataLayers = {
     "USA Green Space": usLayer,
     "World Green Space": worldLayer
   };
-  L.control.layers(baseMaps, null, { collapsed: false }).addTo(map);
+  L.control.layers(dataLayers, null, { collapsed: false }).addTo(map);
   
-  // Listen for base layer changes to update active layer, attributes, stats, and view
+  // Listen for base layer changes in the data layer control
   map.on('baselayerchange', function (e) {
     if (e.name === "USA Green Space") {
       propSymbolsLayer = usLayer;
       activeAttributes = usAttributes;
       calcStats(usData);
-      // Set view for USA
       map.setView([39.8283, -98.5795], 4);
     } else if (e.name === "World Green Space") {
       propSymbolsLayer = worldLayer;
       activeAttributes = worldAttributes;
       calcStats(worldData);
-      // Set view for world
-      map.setView([20, 0], 2);
+      map.setView([20, 0], 3);
     }
-    var slider = document.querySelector('.range-slider');
+    let slider = document.querySelector('.range-slider');
     let idx = parseInt(slider.value);
     updatePropSymbols(activeAttributes[idx]);
   });
